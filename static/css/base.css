@@ -1,0 +1,280 @@
+/* 아래 코드 없으면 반응형인 경우 깨짐 */
+html,
+body {
+  position: fixed;
+  left: 0;
+  top: 0;
+  right: 0;
+}
+
+#dropzone {
+  position: relative;
+  border: 3px dotted black;
+  border-radius: 15px;
+  color: black;
+  font: bold 20px/200px arial;
+  margin: auto;
+  width: 600px;
+  height: 200px;
+}
+
+#dropzone.hover {
+  border: 5px solid #fe5;
+  color: #fe5;
+}
+
+#dropzone.dropped {
+  background: #f5f5f5;
+  border: 5px solid #444;
+}
+
+#dropzone div {
+  position: absolute;
+  text-align: center;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  line-height: 90px;
+  /*background-color: gray; */
+  height: 100px;
+}
+
+#dropzone input {
+  /*line-height: 75px;*/
+  position: absolute;
+  cursor: pointer;
+  width: 600px;
+  opacity: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+
+/* album art */
+.albumart {
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.albumart:hover {
+  opacity: 0.5;
+}
+
+/* The modal (background) */
+.modal {
+  display: none; /* hidden by default */
+  position: fixed;
+  z-index: 1; /* Sit on top */
+  padding-top: 70px; /* Location of the box */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full window */
+  height: 100%;
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0, 0, 0); /* Fallback color */
+  background-color: rgba(0, 0, 0, 0.9); /* Black w/ opacity */
+}
+
+/* control buttons */
+/*.wrapper {
+	display: grid;
+	grid-template-columns: 100px 1000px 100px;
+}
+
+#previous {
+	display: none;
+	margin: auto;
+	width: 20%;
+}
+#next {
+	display: none;
+	margin: auto;
+	width: 20%;
+}*/
+
+/* Modal Content (Image) */
+.modal-content {
+  margin: auto;
+  display: block;
+  width: 40%;
+  max-width: 700px;
+  cursor: pointer;
+  transition: 0.3s;
+
+  /* image rectangle */
+  /*border-radius: 10px;*/
+
+  /* image circle */
+  border-radius: 50%;
+}
+
+.modal-content:hover {
+  opacity: 0.5;
+}
+
+/* Caption of Modal Image (Image Text) - Same Width as the Image */
+#caption {
+  margin: auto;
+  display: block;
+  width: 40%;
+  max-width: 700px;
+  text-align: center;
+  color: #ccc;
+  padding: 10px 0;
+  height: 150px;
+}
+
+#lyricsContent {
+  margin: auto;
+  display: block;
+  width: 40%;
+  max-width: 700px;
+  align: center;
+  text-align: left;
+  color: #ccc;
+  padding: 10px 0;
+  height: 150px;
+}
+
+/* Add animation - Zoom in the Modal */
+.zooming {
+  -webkit-animation-name: zoom;
+  -webkit-animation-duration: 0.5s;
+  -moz-animation-name: zoom;
+  -moz-animation-duration: 0.5s;
+  -ms-animation-name: zoom;
+  -ms-animation-duration: 0.5s;
+  -o-animation-name: zoom;
+  -o-animation-duration: 0.5s;
+  animation-name: zoom;
+  animation-duration: 0.5s;
+}
+
+@-webkit-keyframes zoom {
+  from {
+    -webkit-transform: scale(0);
+  }
+  to {
+    -webkit-transform: scale(1);
+  }
+}
+
+@-moz-keyframes zoom {
+  from {
+    -moz-transform: scale(0);
+  }
+  to {
+    -moz-transform: scale(1);
+  }
+}
+
+@-o-keyframes zoom {
+  from {
+    -o-transform: scale(0);
+  }
+  to {
+    -o-transform: scale(1);
+  }
+}
+
+@keyframes zoom {
+  from {
+    transform: scale(0);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+
+/* spinning image like cd player */
+.spinning {
+  -webkit-animation-name: rotate;
+  -webkit-animation-duration: 5s;
+  -webkit-animation-iteration-count: infinite;
+  -webkit-animation-timing-function: linear;
+  -moz-animation-name: rotate;
+  -moz-animation-duration: 5s;
+  -moz-animation-iteration-count: infinite;
+  -moz-animation-timing-function: linear;
+  -o-animation-name: rotate;
+  -o-animation-duration: 5s;
+  -o-animation-iteration-count: infinite;
+  -o-animation-timing-function: linear;
+  -ms-animation-name: rotate;
+  -ms-animation-duration: 5s;
+  -ms-animation-iteration-count: infinite;
+  -ms-animation-timing-function: linear;
+  animation-name: rotate;
+  animation-duration: 5s;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+}
+
+@-webkit-keyframes rotate {
+  from {
+    -webkit-transform: rotate(0deg);
+  }
+  to {
+    -webkit-transform: rotate(360deg);
+  }
+}
+
+@-moz-keyframes rotate {
+  from {
+    -moz-transform: rotate(0deg);
+  }
+  to {
+    -moz-transform: rotate(360deg);
+  }
+}
+
+@-o-keyframes rotate {
+  from {
+    -o-transform: rotate(0deg);
+  }
+  to {
+    -o-transform: rotate(360deg);
+  }
+}
+
+@keyframes rotate {
+  from {
+    -webkit-transform: rotate(0deg);
+  }
+  to {
+    -webkit-transform: rotate(360deg);
+  }
+}
+
+/* 100% Image Width on Smaller Screens */
+@media only screen and (max-width: 700px) {
+  .modal-content {
+    width: 100%;
+  }
+}
+
+/* progress bar */
+.progress {
+  margin-top: 10px;
+  height: 10px;
+}
+
+@media only screen and (max-width: 750px) {
+  #dropzone {
+    width: 90%;
+    height: 150px;
+  }
+  /* 모바일에서는 필요없는 필드는 제거함 */
+  .no-td {
+    display: none;
+  }
+
+  /* row to colume depoending on screen size */
+  /* table,
+  tr,
+  td {
+    display: block;
+  } */
+}

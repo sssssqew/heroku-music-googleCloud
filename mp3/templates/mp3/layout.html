@@ -1,0 +1,157 @@
+<!-- *********************************************************************************** -->
+<!-- 웹기반 음악 플레이어 서비스 -->
+<!-- 파일을 벡엔드에 저장하고 메타데이터를 프론트로 가져옴 -->
+<!-- 서버에서 메타 데이터 추출함 (mutagen 사용) -->
+
+<!-- 개발자 (Author) : 이성용 -->
+<!-- 개발완료 (Release) : 2016 / 9 / 06 -->
+<!-- 최종버전 (Version) : 1.0.1 -->
+<!-- 이메일 (E-mail) : sssssqew@naver.com -->
+<!-- 서비스 배포주소 기재 -->
+<!-- *********************************************************************************** -->
+
+{% load staticfiles %}
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <link
+      rel="shortcut icon"
+      type="image/x-icon"
+      href="{% static 'mp3/song3.ico' %}"
+    />
+    <title>{% block title %}{% endblock %}</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"
+    />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href='{% static "css/base.css" %}' />
+  </head>
+  <body>
+    <nav class="navbar navbar-default container-fluid">
+      <div class="navbar-header">
+        <a class="navbar-brand" href="{% url 'mp3:home' %}">
+          <img src="{% static 'mp3/song3.ico' %}" width="25" height="auto" />
+        </a>
+      </div>
+    </nav>
+
+    <form id="passData" action="" method="POST" enctype="multipart/form-data">
+      {% csrf_token %}
+      <input
+        type="file"
+        multiple
+        id="songFile"
+        name="songFile"
+        style="display:none"
+      />
+    </form>
+
+    <!--  popup cd player  -->
+    <div
+      id="myModal"
+      class="modal"
+      data-toggle="tooltip"
+      data-placement="top"
+      title=""
+      data-delay-show="200"
+      data-delay-hide="1000"
+    >
+      <img class="modal-content" id="img01" />
+      <div id="caption"></div>
+      <div id="lyricsContent"></div>
+    </div>
+
+    <div class="container">
+      <!-- drag and drop zone -->
+      <div id="dropzone">
+        <div>dropzone</div>
+        <input
+          type="file"
+          id="musicFiles"
+          accept="audio/*"
+          multiple
+          onchange="handleFiles(this.files)"
+        /><br />
+      </div>
+
+      <br />
+      <div>
+        <audio id="musicPlayer" class="center-block" style="width: 300px" />
+      </div>
+      <br />
+
+      <table class="table  table-striped">
+        <thread>
+          <tr>
+            <td><b>Cover</b></td>
+            <td class="no-td"><b>Album</b></td>
+            <td><b>Title</b></td>
+            <td class="no-td"><b>Artist</b></td>
+            <td class="no-td"><b>Genre</b></td>
+            <td class="no-td"><b>Release</b></td>
+            <td class="no-td"><b>Time</b></td>
+            <td class="no-td"><b>Lyrics</b></td>
+            <td><b>Play</b></td>
+            <td class="no-td"><b>Favorite</b></td>
+          </tr>
+        </thread>
+
+        <tbody id="musicList"></tbody>
+      </table>
+    </div>
+
+    <script src="{% static 'js/playControls.js' %}"></script>
+
+    <!-- *************  음악의 태그를 읽고 테이블에 정보를 표시하는 기능   *************** -->
+
+    {% if musics.count > 0 %}
+
+    <script>
+      var musicList = document.getElementById("musicList");
+      musicList.innerHTML = "";
+
+      // 음악 객체와 정보를 담을 배열선언
+      var player = new Array();
+      var coverColumn, cover, album, title, artist, genre, release, time;
+      var buttons, lyricsButton, playButton, likeButton, bar, plabel;
+      var songFile;
+    </script>
+
+    {% for music in musics %}
+    <!-- 함수를 여러번 호출하면 리턴값이 없어짐 -->
+    <!-- 함수를 한번만 호출해서 리턴값을 저장한 다음 사용해야 함 -->
+    {% with music.metadata as meta %}
+    <script>
+      var fileSize = "{{ music.song.size }}";
+
+      // 재생할 음악 파일의 주소
+      var url = "/media/upload/{{ music.filename }}"; // 구글 클라우드 주소로 변경
+      var likeImg = "{% static 'mp3/like.png' %}";
+      var coverImg = "{% static 'albumCover/' %}{{ meta.cover }}";
+
+      var albumInfo = "{{ meta.album }}";
+      var titleInfo = "{{ meta.title }}";
+      var artistInfo = "{{ meta.artist }}";
+      var genreInfo = "{{ meta.genre }}";
+      var releaseInfo = "{{ meta.release }}";
+      // safe filter will no escape
+      var lyrics = `{{ meta.lyrics | safe }}`;
+      var duration = "{{ meta.duration }}";
+    </script>
+
+    <script src="{% static 'js/showPlayList.js' %}"></script>
+
+    {% endwith %} {% endfor %}
+    <script>
+      var serverLoad = new Date().getTime() - loadStart;
+      console.log("server ends");
+      console.log("sever load..." + serverLoad / 1000 + " sec");
+    </script>
+    {% endif %} {% block content %}{% endblock %}
+  </body>
+</html>
