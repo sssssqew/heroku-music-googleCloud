@@ -144,6 +144,7 @@ def saveSong(request):
                 path_on_cloud = gsFileFolder+"/"+song.name #  업로드 경로 설정
 
                 # 업로드 하는데 시간 존나 오래 걸림 (5~6초) => 파일 압축이 필요함
+                # 히로쿠에 올리니까 좀 빨라짐 (1~2초)
                 GS_upload_time = time.time()
                 storage.child(path_on_cloud).put(song)
                 print("--- Google Upload  Time: %s seconds ---" % (time.time() - GS_upload_time))
