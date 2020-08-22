@@ -2,7 +2,6 @@
 html,
 body {
   position: fixed;
-  overflow-x: hidden;
   overflow-y: auto; /* 테이블이 길어지면 밑에 짤림 해결함*/
   width: 100%;
   height: 100vh; /* 테이블이 길어지면 밑에 짤림 해결함*/
