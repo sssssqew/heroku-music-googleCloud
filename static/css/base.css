@@ -268,6 +268,7 @@ body {
   body {
     max-height: 100%;
     width: 100%;
+    overflow-x: hidden;
   }
   #dropzone {
     width: 90%;
