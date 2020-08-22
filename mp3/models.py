@@ -21,7 +21,6 @@ import uuid
 # 7. heroku pg:reset
 # 8. heroku run python manage.py migrate
 
-from mutagen.id3 import ID3
 
 
 class AudioFile(models.Model):
@@ -43,92 +42,4 @@ class AudioFile(models.Model):
     def get_GoogleStorageFolderName(self):
         return "songs"
 
-    # def get_location(self):
-    #     googleStorageLocation = "gs://sylee-music-player.appspot.com/" + \
-    #         self.get_GoogleStorageFolderName()+"/"
-    #     return googleStorageLocation
-
-# print ("cover : " + meta["cover"])
-# print ("album : " + meta["album"])
-# print ("title : " + meta["title"])
-# print ("artist : " + meta["artist"])
-# print ("genre : " + meta["genre"])
-# print ("release : " + meta["release"])
-# print ("encodedby : " + meta["encodedby"])
-# print ("lyrics : " + meta["lyrics"])
-# print ("duration : " + str(meta["duration"]))
-
-# def filename(self):
-#     return os.path.basename(self.title)
-
-# def metadata(self):
-
-#     musicName = os.path.splitext(self.filename())[0]  # 확장자를 제외한 파일명
-#     coverPath = 'static/albumCover/' + musicName + '.jpg'
-#     coverDefault = 'cdp.png'
-#     titleDefault = os.path.splitext(self.title)[0]
-
-#     meta = {"cover": coverDefault, "album": "", "title": titleDefault, "artist": "",
-#             "genre": "", "release": "", "encodedby": "", "lyrics": "", "duration": 0}
-
-#     if self.song:
-
-#         # 메타데이터 추출
-#         try:
-#             id3 = ID3(self.song)
-
-#             for key in id3:
-#                 if "APIC" in key:
-#                     # 특정위치에 태그에서 읽은 앨범커버 이미지를 복사함
-#                     if not os.path.exists(coverPath):
-#                         with open(coverPath, 'wb') as img:
-#                             img.write(id3.getall(key)[0].data)
-#                     else:
-#                         print("cover already exists !!")
-
-#                     meta["cover"] = musicName + '.jpg'
-
-#                 if "TALB" in key:
-#                     meta["album"] = str(id3.getall(key)[0])
-
-#                 if "TIT" in key:
-#                     meta["title"] = str(id3.getall(key)[0])
-
-#                 if "TPE" in key:
-#                     meta["artist"] = str(id3.getall(key)[0])
-
-#                 if "TCON" in key:
-#                     meta["genre"] = str(id3.getall(key)[0])
-
-#                 if "TDRC" in key:
-#                     meta["release"] = str(id3.getall(key)[0])
-
-#                 if "TENC" in key or "COMM" in key:
-#                     meta["encodedby"] = str(id3.getall(key)[0])
-
-#                 if "USLT" in key:
-#                     try:
-#                         meta['lyrics'] = id3.getall(key)[0]
-#                     except:
-#                         print("failed to extract lyrics :(")
-
-#             # meta["duration"] = id3.pprint()
-
-#         except:
-#             print("failed to extract metadata :(")
-
-#     else:
-#         print("There is no song :(")
-
-#     # print('------------------------------------')
-#     # print ("cover : " + meta["cover"])
-#     # print ("album : " + meta["album"])
-#     # print ("title : " + meta["title"])
-#     # print ("artist : " + meta["artist"])
-#     # print ("genre : " + meta["genre"])
-#     # print ("release : " + meta["release"])
-#     # print ("encodedby : " + meta["encodedby"])
-#     # print ("lyrics : " + meta["lyrics"])
-#     # print ("duration : " + str(meta["duration"]))
-
-#     return meta
+ 
