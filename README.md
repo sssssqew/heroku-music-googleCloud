@@ -13,6 +13,7 @@ Python 3.6
 Django 2.0
 Heroku hosting
 Google Firebase Storage
+Responsive for desktop and mobile
 ```
 
 ```
