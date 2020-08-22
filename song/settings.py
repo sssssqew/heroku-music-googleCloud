@@ -91,8 +91,8 @@ WSGI_APPLICATION = 'song.wsgi.application'
 # 포트 : 기본 3306
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2', # production
-        # 'ENGINE': 'django.db.backends.sqlite3',    # development
+        # 'ENGINE': 'django.db.backends.postgresql_psycopg2', # production
+        'ENGINE': 'django.db.backends.sqlite3',    # development
         'NAME': 'music',
         'USER': 'syleemomo',
         'PASSWORD': 'rkrrlsk',
