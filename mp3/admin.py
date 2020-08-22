@@ -4,10 +4,11 @@ from django.contrib import admin
 # Register your models here.
 from .models import AudioFile
 
+
 class AudioFileAdmin(admin.ModelAdmin):
-    list_display = ['song', 'name'] # 커스터마이징 코드
-    list_filter = ('song', 'name', )
-    search_fields = ['name']
+    list_display = [ 'title', 'album','artist', 'genre', 'release','duration']  # 커스터마이징 코드
+    list_filter = ('title','album',  'artist', 'genre', 'release','duration')
+    search_fields = [ 'title','album', 'artist', 'genre', 'release','duration']
 
 
 admin.site.register(AudioFile, AudioFileAdmin)

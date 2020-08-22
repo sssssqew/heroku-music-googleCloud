@@ -125,28 +125,29 @@
     {% for music in musics %}
     <!-- 함수를 여러번 호출하면 리턴값이 없어짐 -->
     <!-- 함수를 한번만 호출해서 리턴값을 저장한 다음 사용해야 함 -->
-    {% with music.metadata as meta %}
+
     <script>
       var fileSize = "{{ music.song.size }}";
 
       // 재생할 음악 파일의 주소
-      var url = "/media/upload/{{ music.filename }}"; // 구글 클라우드 주소로 변경
+      var url = "{{ music.cloudSrc }}"; // 구글 클라우드 주소로 변경
+      console.log(url);
       var likeImg = "{% static 'mp3/like.png' %}";
-      var coverImg = "{% static 'albumCover/' %}{{ meta.cover }}";
+      var coverImg = "{{ music.cover }}";
 
-      var albumInfo = "{{ meta.album }}";
-      var titleInfo = "{{ meta.title }}";
-      var artistInfo = "{{ meta.artist }}";
-      var genreInfo = "{{ meta.genre }}";
-      var releaseInfo = "{{ meta.release }}";
+      var albumInfo = "{{ music.album }}";
+      var titleInfo = "{{ music.title }}";
+      var artistInfo = "{{ music.artist }}";
+      var genreInfo = "{{ music.genre }}";
+      var releaseInfo = "{{ music.release }}";
       // safe filter will no escape
-      var lyrics = `{{ meta.lyrics | safe }}`;
-      var duration = "{{ meta.duration }}";
+      var lyrics = `{{ music.lyrics | safe }}`;
+      var duration = "{{ music.duration }}";
     </script>
 
     <script src="{% static 'js/showPlayList.js' %}"></script>
 
-    {% endwith %} {% endfor %}
+    {% endfor %}
     <script>
       var serverLoad = new Date().getTime() - loadStart;
       console.log("server ends");

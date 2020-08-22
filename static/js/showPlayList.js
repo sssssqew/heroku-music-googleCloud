@@ -2,14 +2,6 @@
 tableRow = document.createElement("tr");
 musicList.appendChild(tableRow);
 
-// 재생시간 계산
-pTimeMin = parseInt(duration / 60); // duration : second
-pTimeSec = parseInt(duration % 60);
-
-if (pTimeSec < 10) pTimeSec = "0" + pTimeSec;
-
-timeToPlay = pTimeMin + ":" + pTimeSec;
-
 // 앨범커버 생성
 coverColumn = document.createElement("td");
 cover = document.createElement("img");
@@ -54,7 +46,7 @@ release.className = "no-td";
 tableRow.appendChild(release);
 
 time = document.createElement("td"); // time
-time.innerText = timeToPlay;
+time.innerText = duration;
 time.className = "no-td";
 tableRow.appendChild(time);
 

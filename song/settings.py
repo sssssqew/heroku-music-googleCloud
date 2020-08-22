@@ -1,4 +1,4 @@
- # -*- coding: utf8 -*- 
+# -*- coding: utf8 -*-
 
 """
 Django settings for song project.
@@ -26,7 +26,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'ya5gupgvq^_ysq3y1%6l=+d=slk^5=)i!fyo#(%plor7pmf*te'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True # development
+DEBUG = True  # development
 # DEBUG = False # production
 
 ALLOWED_HOSTS = ['127.0.0.1', '.herokuapp.com']
@@ -44,9 +44,9 @@ INSTALLED_APPS = [
     'mp3',
 ]
 
-# MIDDLEWARE_CLASS 에서 변경함 
+# MIDDLEWARE_CLASS 에서 변경함
 # 제대로 설정되지 않으면 정적파일 로드가 되지 않음
-MIDDLEWARE = [  
+MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -56,7 +56,7 @@ MIDDLEWARE = [
     # 'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-		
+
 ]
 
 ROOT_URLCONF = 'song.urls'
@@ -65,7 +65,7 @@ ROOT_URLCONF = 'song.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR,'static')],
+        'DIRS': [os.path.join(BASE_DIR, 'static')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -92,8 +92,8 @@ WSGI_APPLICATION = 'song.wsgi.application'
 DATABASES = {
     'default': {
         # 'ENGINE': 'django.db.backends.postgresql_psycopg2', # production
-        'ENGINE': 'django.db.backends.sqlite3',    # development  
-        'NAME': 'music',    
+        'ENGINE': 'django.db.backends.sqlite3',    # development
+        'NAME': 'music',
         'USER': 'syleemomo',
         'PASSWORD': 'rkrrlsk',
         'HOST': 'https://sylee-music-player.herokuapp.com',
@@ -138,7 +138,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.9/howto/static-files/
 
-# 개발자 환경에서 static 폴더 인식은 django 상위버전에서 
+# 개발자 환경에서 static 폴더 인식은 django 상위버전에서
 # 아래와 같이 STATICFILES_DIRS 변수 내 배열로 셋팅해야 인식함
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
@@ -148,11 +148,10 @@ STATICFILES_DIRS = [
 ]
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
-MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+# MEDIA_URL = '/media/'
+# MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 db_from_env = dj_database_url.config(conn_max_age=500)
 DATABASES['default'].update(db_from_env)
 
 # AUTH_USER_MODEL = 'users.Users' # 'AppName.모델명'
-

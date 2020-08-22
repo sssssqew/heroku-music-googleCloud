@@ -1,8 +1,9 @@
-#-*- coding: utf-8 -*-
+# -*- coding: utf-8 -*-
 from django.db import models
 import os
+import uuid
 
-# 음악정보 추출 라이브러리 
+# 음악정보 추출 라이브러리
 # 모델 수정후에는 반드시 히로쿠 마이그레이션 필요함
 # heroku pg:reset (DB 클리어)
 # DB 클리어 후 반드시 마이그레이션 필요함
@@ -17,89 +18,117 @@ import os
 # 4. git add someapp/migrations/*.py (to add the new migration file)
 # 5. git commit -m "added migration for app someapp"
 # 6. git push heroku
-# 7. heroku pg:reset 
+# 7. heroku pg:reset
 # 8. heroku run python manage.py migrate
- 
+
 from mutagen.id3 import ID3
+
 
 class AudioFile(models.Model):
 
-	song = models.FileField(upload_to='upload', null=True) 
-	name = models.CharField(max_length=300, null=True)	
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    cover = models.CharField(max_length=500, null=True)
+    album = models.CharField(max_length=300, null=True)
+    title = models.CharField(max_length=300, null=True)
+    artist = models.CharField(max_length=300, null=True)
+    genre = models.CharField(max_length=300, null=True)
+    release = models.CharField(max_length=300, null=True)
+    lyrics = models.CharField(max_length=300, null=True)
+    duration = models.CharField(max_length=300, null=True)
+    cloudSrc = models.CharField(max_length=500, null=True)
 
-	def __unicode__(self):
-		return self.name 
+    def __unicode__(self):
+        return self.title
 
-	def filename(self):
-		return os.path.basename(self.song.file.name)
+    def get_GoogleStorageFolderName(self):
+        return "songs"
 
-	def metadata(self):
-		
-		musicName = os.path.splitext(self.filename())[0] # 확장자를 제외한 파일명 
-		coverPath = 'static/albumCover/'+ musicName + '.jpg'  
-		coverDefault = 'cdp.png'
-		titleDefault = os.path.splitext(self.name)[0]
+    # def get_location(self):
+    #     googleStorageLocation = "gs://sylee-music-player.appspot.com/" + \
+    #         self.get_GoogleStorageFolderName()+"/"
+    #     return googleStorageLocation
 
-		meta = {"cover": coverDefault, "album": "", "title": titleDefault, "artist": "", "genre": "", "release": "", "encodedby": "", "lyrics": "", "duration": 0}
+# print ("cover : " + meta["cover"])
+# print ("album : " + meta["album"])
+# print ("title : " + meta["title"])
+# print ("artist : " + meta["artist"])
+# print ("genre : " + meta["genre"])
+# print ("release : " + meta["release"])
+# print ("encodedby : " + meta["encodedby"])
+# print ("lyrics : " + meta["lyrics"])
+# print ("duration : " + str(meta["duration"]))
 
-		if self.song:
+# def filename(self):
+#     return os.path.basename(self.title)
 
-			# 메타데이터 추출 
-			try:
-				id3 = ID3(self.song)
-				
-				for key in id3:
-					if "APIC" in key:
-						# 특정위치에 태그에서 읽은 앨범커버 이미지를 복사함 
-						if not os.path.exists(coverPath):
-							with open(coverPath, 'wb') as img:
-								img.write(id3.getall(key)[0].data)
-						else:
-							print ("cover already exists !!")						
+# def metadata(self):
 
-						meta["cover"] = musicName + '.jpg'
+#     musicName = os.path.splitext(self.filename())[0]  # 확장자를 제외한 파일명
+#     coverPath = 'static/albumCover/' + musicName + '.jpg'
+#     coverDefault = 'cdp.png'
+#     titleDefault = os.path.splitext(self.title)[0]
 
-					if "TALB" in key:
-						meta["album"] = str(id3.getall(key)[0])					
+#     meta = {"cover": coverDefault, "album": "", "title": titleDefault, "artist": "",
+#             "genre": "", "release": "", "encodedby": "", "lyrics": "", "duration": 0}
 
-					if "TIT" in key:
-						meta["title"] = str(id3.getall(key)[0])
-						
-					if "TPE" in key:
-						meta["artist"] = str(id3.getall(key)[0])	
+#     if self.song:
 
-					if "TCON" in key:
-						meta["genre"] = str(id3.getall(key)[0])
-					
-					if "TDRC" in key:
-						meta["release"] = str(id3.getall(key)[0])
-					
-					if "TENC" in key or "COMM" in key:
-						meta["encodedby"] = str(id3.getall(key)[0])
+#         # 메타데이터 추출
+#         try:
+#             id3 = ID3(self.song)
 
-					if "USLT" in key:
-						try:	
-							meta['lyrics'] = id3.getall(key)[0]
-						except:
-							print ("failed to extract lyrics :(")			
+#             for key in id3:
+#                 if "APIC" in key:
+#                     # 특정위치에 태그에서 읽은 앨범커버 이미지를 복사함
+#                     if not os.path.exists(coverPath):
+#                         with open(coverPath, 'wb') as img:
+#                             img.write(id3.getall(key)[0].data)
+#                     else:
+#                         print("cover already exists !!")
 
-				# meta["duration"] = id3.pprint()
+#                     meta["cover"] = musicName + '.jpg'
 
-			except:
-				print ("failed to extract metadata :(")
+#                 if "TALB" in key:
+#                     meta["album"] = str(id3.getall(key)[0])
 
-		else:
-			print ("There is no song :(");
+#                 if "TIT" in key:
+#                     meta["title"] = str(id3.getall(key)[0])
 
-		# print('------------------------------------')
-		# print ("cover : " + meta["cover"])
-		# print ("album : " + meta["album"])
-		# print ("title : " + meta["title"])
-		# print ("artist : " + meta["artist"])
-		# print ("genre : " + meta["genre"])
-		# print ("release : " + meta["release"])
-		# print ("encodedby : " + meta["encodedby"])
-		# print ("lyrics : " + meta["lyrics"])
-		# print ("duration : " + str(meta["duration"]))
+#                 if "TPE" in key:
+#                     meta["artist"] = str(id3.getall(key)[0])
 
-		return meta 
+#                 if "TCON" in key:
+#                     meta["genre"] = str(id3.getall(key)[0])
+
+#                 if "TDRC" in key:
+#                     meta["release"] = str(id3.getall(key)[0])
+
+#                 if "TENC" in key or "COMM" in key:
+#                     meta["encodedby"] = str(id3.getall(key)[0])
+
+#                 if "USLT" in key:
+#                     try:
+#                         meta['lyrics'] = id3.getall(key)[0]
+#                     except:
+#                         print("failed to extract lyrics :(")
+
+#             # meta["duration"] = id3.pprint()
+
+#         except:
+#             print("failed to extract metadata :(")
+
+#     else:
+#         print("There is no song :(")
+
+#     # print('------------------------------------')
+#     # print ("cover : " + meta["cover"])
+#     # print ("album : " + meta["album"])
+#     # print ("title : " + meta["title"])
+#     # print ("artist : " + meta["artist"])
+#     # print ("genre : " + meta["genre"])
+#     # print ("release : " + meta["release"])
+#     # print ("encodedby : " + meta["encodedby"])
+#     # print ("lyrics : " + meta["lyrics"])
+#     # print ("duration : " + str(meta["duration"]))
+
+#     return meta

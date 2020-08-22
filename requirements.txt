@@ -3,4 +3,5 @@ dj-database-url==0.4.2
 gunicorn==20.0.4
 whitenoise==5.2.0
 psycopg2==2.7.5
-mutagen==1.40.0
+Pyrebase==3.0.27
+eyeD3==0.9.5
