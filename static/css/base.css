@@ -5,6 +5,9 @@ body {
   left: 0;
   top: 0;
   right: 0;
+  overflow-y: auto; /* 테이블이 길어지면 밑에 짤림 해결함*/
+  height: 100vh; /* 테이블이 길어지면 밑에 짤림 해결함*/
+  /* border: 2px solid red; */
 }
 
 #dropzone {
