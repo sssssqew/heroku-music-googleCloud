@@ -26,8 +26,8 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'ya5gupgvq^_ysq3y1%6l=+d=slk^5=)i!fyo#(%plor7pmf*te'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-# DEBUG = True  # development
-DEBUG = False # production
+DEBUG = True  # development
+# DEBUG = False # production
 
 ALLOWED_HOSTS = ['127.0.0.1', '.herokuapp.com']
 
@@ -46,10 +46,10 @@ INSTALLED_APPS = [
 
 # MIDDLE엄E_CLASS 에서 변경함
 # 제대로엄정되지 않으면 정적파일 로드가 되지 않음
-MIDDLEWA엄= [
-    'dja엄.middleware.security.SecurityMiddleware',
-    'whi엄oise.middleware.WhiteNoiseMiddleware',
-    'dja엄.contrib.sessions.middleware.SessionMiddleware',
+MIDDLEWARE= [
+    'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
+    'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
