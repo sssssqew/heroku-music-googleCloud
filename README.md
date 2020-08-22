@@ -28,7 +28,7 @@ eyeD3==0.9.5
 ```
 
 ```
-아래 링크를 클릭하시면 데모 페이지로 연결됩니다.
+Click to see demo page
 ```
 
 https://sylee-music-player.herokuapp.com
