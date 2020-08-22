@@ -25,7 +25,7 @@ import uuid
 
 class AudioFile(models.Model):
 
-    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    # id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     cover = models.CharField(max_length=500, null=True)
     album = models.CharField(max_length=300, null=True)
     title = models.CharField(max_length=300, null=True)
