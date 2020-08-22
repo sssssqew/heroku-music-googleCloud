@@ -44,12 +44,12 @@ INSTALLED_APPS = [
     'mp3',
 ]
 
-# MIDDLEWARE_CLASS 에서 변경함
-# 제대로 설정되지 않으면 정적파일 로드가 되지 않음
-MIDDLEWARE = [
-    'django.middleware.security.SecurityMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',
-    'django.contrib.sessions.middleware.SessionMiddleware',
+# MIDDLE엄E_CLASS 에서 변경함
+# 제대로엄정되지 않으면 정적파일 로드가 되지 않음
+MIDDLEWA엄= [
+    'dja엄.middleware.security.SecurityMiddleware',
+    'whi엄oise.middleware.WhiteNoiseMiddleware',
+    'dja엄.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',

@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from django.db import models
 import os
-import uuid
+
 
 # 음악정보 추출 라이브러리
 # 모델 수정후에는 반드시 히로쿠 마이그레이션 필요함
@@ -25,7 +25,6 @@ import uuid
 
 class AudioFile(models.Model):
 
-    # id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     cover = models.CharField(max_length=500, null=True)
     album = models.CharField(max_length=300, null=True)
     title = models.CharField(max_length=300, null=True)
@@ -38,8 +37,5 @@ class AudioFile(models.Model):
 
     def __unicode__(self):
         return self.title
-
-    def get_GoogleStorageFolderName(self):
-        return "songs"
 
  
