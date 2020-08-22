@@ -41,11 +41,12 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'mp3',
+    'mp3', # 프로젝트 폴더
 ]
 
-# MIDDLE엄E_CLASS 에서 변경함
-# 제대로엄정되지 않으면 정적파일 로드가 되지 않음
+# MIDDLE엄E_CLASS 에서 변경함 => 장고 버전 업그레이드
+# 제대로 작성되지 않으면 정적파일 로드가 되지 않음
+# 깃이 충돌하면서 미들웨어 코드가 깨져서  static 파일들을 읽어오지 못했음
 MIDDLEWARE= [
     'django.middleware.security.SecurityMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
@@ -59,7 +60,7 @@ MIDDLEWARE= [
 
 ]
 
-ROOT_URLCONF = 'song.urls'
+ROOT_URLCONF = 'song.urls' # URL을 song 폴더부터 읽기 시작함
 # ROOT_URLCONF = 'mp3.urls' # 이렇게 설정하면 song.urls 파일은 동작하지 않음
 
 TEMPLATES = [
@@ -148,6 +149,7 @@ STATICFILES_DIRS = [
 ]
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
+# 로컬에서 테스트할때만 필요하고 프로덕션인 경우에는 AWS S3나 구글 파이어베이스 스토리지 사용하기
 # MEDIA_URL = '/media/'
 # MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 

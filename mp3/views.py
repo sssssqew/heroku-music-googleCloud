@@ -34,6 +34,7 @@ config = {
     "measurementId": "G-Y3FWCRRGK4"
 }
 
+# 변수 초기화
 gsFileFolder = "songs"
 gsCoverFolder = "covers"
 
