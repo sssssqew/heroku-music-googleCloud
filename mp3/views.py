@@ -44,6 +44,8 @@ storage = firebase.storage()
 user = auth.sign_in_with_email_and_password(
     "syleemomo@gmail.com", "rkrrlska7496ab@")
 
+# auth.create_user_with_email_and_password(email, password) # 이메일 생성
+
 
 def duration_from_seconds(s):
     """Module to get the convert Seconds to a time like format."""
