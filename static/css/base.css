@@ -264,6 +264,11 @@ body {
 }
 
 @media only screen and (max-width: 750px) {
+  html,
+  body {
+    max-height: 100%;
+    width: 100%;
+  }
   #dropzone {
     width: 90%;
     height: 100px;
