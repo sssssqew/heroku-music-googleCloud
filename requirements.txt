@@ -5,3 +5,8 @@ whitenoise==5.2.0
 psycopg2==2.7.5
 Pyrebase==3.0.27
 eyeD3==0.9.5
+flower==0.9.5
+redis==3.5.3
+celery==4.4.7
+django-celery-beat==2.0.0
+django-celery-results==1.2.1
