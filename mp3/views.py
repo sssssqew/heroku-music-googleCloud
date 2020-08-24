@@ -13,7 +13,6 @@ from django.conf import settings
 # from pprint import pprint
 
 import time
-import HTMLParser
 
 # 비동기 작업
 from .tasks import uploadSongToGoogleStorage
@@ -55,7 +54,7 @@ def saveSong(request):
                 print("--- DB access Time: %s seconds ---" % (time.time() - DB_get_time))
             except:
                 # 업로드한 임시파일이 셀러리가 실행될때 파일이 존재하지 않아 임시로 저장한 후 샐러리 실행후 삭제함
-                savedFilePath=settings.STATICFILES_DIRS[0]+'/'+ HTMLParser.HTMLParser().unescape(song.name) 
+                savedFilePath=settings.STATICFILES_DIRS[0]+'/'+song.name
                 save_song(savedFilePath,song)
                 
                 # 구글 스토리지에 음원과 앨범아트 업로드하는 건 셀러리를 이용한 비동기 처리로 실행함(너무 오래 걸리는 작업이라서)
