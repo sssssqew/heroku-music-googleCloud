@@ -44,7 +44,7 @@ def get_metadata(songName, path):
         
             # 메타데이터 추출
             metadata["album"]=audiofile.tag.album or ""
-            metadata["title"]=songName or audiofile.tag.title
+            metadata["title"]=audiofile.tag.title or songName
             metadata["artist"]=audiofile.tag.artist or ""
             metadata["release"]=audiofile.tag.getBestDate()  or ""
 
