@@ -28,7 +28,7 @@ body {
 #dropzone {
   z-index: 1;
   position: fixed;
-  top: 180px;
+  top: 163px;
   left: 50%;
   transform: translate(-50%, -50%);
   border-radius: 15px;
@@ -301,7 +301,7 @@ body {
   #dropzone {
     width: 90%;
     height: 100px;
-    top: 130px;
+    top: 113px;
   }
   .container {
     top: 180px;
