@@ -21,7 +21,7 @@ def uploadSongToGoogleStorage(songInfos):
   storageInfos=configGoogFirebaseStroage()
   print("storage info =>" + str(storageInfos["storage"]))
   print("song path =>"+songInfos["savedFilePath"])
-  print("task id =>"+current_task.request.id)
+  # print("task id =>"+current_task.request.id)
 
   # 변수 초기화
   gsFileFolder = "songs"
