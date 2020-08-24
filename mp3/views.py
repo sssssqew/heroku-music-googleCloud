@@ -60,7 +60,7 @@ def saveSong(request):
                 # 구글 스토리지에 음원과 앨범아트 업로드하는 건 셀러리를 이용한 비동기 처리로 실행함(너무 오래 걸리는 작업이라서)
                 songInfos={"name": song.name, "savedFilePath": savedFilePath}
                 print("google upload started ......")
-                add.delay(4,9)
+                # add.delay(4,9)
                 
                 # 히로쿠에서 레디스 애드온 설치하려면 카드 정보 입력해야 되서 비동기 테스트는 로컬에서만 하기 
                 # res=uploadSongToGoogleStorage.delay(songInfos)
