@@ -95,7 +95,7 @@ body {
 .modal {
   display: none; /* hidden by default */
   position: fixed;
-  z-index: 1; /* Sit on top */
+  z-index: 2; /* Sit on top */
   padding-top: 70px; /* Location of the box */
   left: 0;
   top: 0;
