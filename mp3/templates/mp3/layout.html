@@ -68,7 +68,7 @@
 
     <!-- drag and drop zone -->
     <div id="dropzone">
-      <div>dropzone</div>
+      <div class="dropzone-text">dropzone</div>
       <input
         type="file"
         id="musicFiles"
@@ -103,6 +103,17 @@
         <tbody id="musicList"></tbody>
       </table>
     </div>
+
+    <script>
+      window.addEventListener("scroll", e => {
+        const nav = document.querySelector(".navbar-wrapper");
+        if (window.pageYOffset > 30) {
+          nav.classList.add("add-shadow");
+        } else {
+          nav.classList.remove("add-shadow");
+        }
+      });
+    </script>
 
     <script src="{% static 'js/playControls.js' %}"></script>
 
