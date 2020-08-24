@@ -35,7 +35,7 @@ def get_metadata(songName, path):
             # 구글 스토리지에 앨범 커버를 저장함
             if audiofile.tag.images:
                 for image in audiofile.tag.images:
-                    coverName=audiofile.tag.title or songName
+                    coverName=songName or audiofile.tag.title
                     path_on_cloud = gsCoverFolder+"/"+coverName +".jpg"
                     storageInfos["storage"].child(path_on_cloud).put(image.image_data)
 
