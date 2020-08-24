@@ -8,13 +8,14 @@ from .metadata import get_metadata
 from .models import AudioFile
 from .googleConfig import configGoogFirebaseStroage
 
-@shared_task
-def add(x, y):
-  print("inside tasks .............")
-  print(x)
-  return x + y
+# @shared_task
+# def add(x, y):
+#   print("inside tasks .............")
+#   print(x)
+#   return x + y
 
-@shared_task
+# @shared_task 
+# 로컬에서만 celery 테스트하기
  # 구글 파이어베이스 스토리지에 음악파일 업로드하기
 def uploadSongToGoogleStorage(songInfos):
   storageInfos=configGoogFirebaseStroage()
@@ -53,9 +54,10 @@ def uploadSongToGoogleStorage(songInfos):
   print('\n')
 
   # task id 를 이용하여 결과를 요청한 곳에 리턴해줌
-  res = AsyncResult(current_task.request.id)
+  # res = AsyncResult(current_task.request.id)
 
   # 리턴값은 반드시 시리얼로 변경 가능한 (serializable) 값이어야 함 => 객체는 안됨 
-  return res
+  # return res
+  return "succeed"
 
 

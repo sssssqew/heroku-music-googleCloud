@@ -15,7 +15,7 @@ from django.conf import settings
 import time
 
 # 비동기 작업
-from .tasks import uploadSongToGoogleStorage, add
+from .tasks import uploadSongToGoogleStorage
 
 # 페이지 렌더링은 파일전송 성공시 Ajax 콜백함수(success)에서 한번만 함
 # Ajax 콜백함수(success)가 호출되면 페이지를 새로고침함
@@ -66,7 +66,7 @@ def saveSong(request):
                 # res=uploadSongToGoogleStorage.delay(songInfos)
                 
                 # 히로쿠에서는 동기로만 실행하기
-                res=uploadSongToGoogleStorage(songInfos)
+                uploadSongToGoogleStorage(songInfos)
                
                 # print(res.state) # 'SUCCESS'
                 # print(res.get()) # 7
