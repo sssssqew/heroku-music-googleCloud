@@ -35,7 +35,7 @@ def get_metadata(songName, path):
             # 구글 스토리지에 앨범 커버를 저장함
             if audiofile.tag.images:
                 for image in audiofile.tag.images:
-                    coverName=songName or audiofile.tag.title
+                    coverName=audiofile.tag.title or songName
                     path_on_cloud = gsCoverFolder+"/"+coverName +".jpg"
                     storageInfos["storage"].child(path_on_cloud).put(image.image_data)
 
@@ -44,7 +44,7 @@ def get_metadata(songName, path):
         
             # 메타데이터 추출
             metadata["album"]=audiofile.tag.album or ""
-            metadata["title"]=audiofile.tag.title or songName
+            metadata["title"]=songName or audiofile.tag.title
             metadata["artist"]=audiofile.tag.artist or ""
             metadata["release"]=audiofile.tag.getBestDate()  or ""
 
