@@ -49,7 +49,7 @@ def get_metadata(songName, path):
             metadata["release"]=audiofile.tag.getBestDate()  or ""
 
             if audiofile.tag.genre:
-                metadata["genre"]=audiofile.tag.genre) # 인덱스 오류 자주남 (에러처리)
+                metadata["genre"]=audiofile.tag.genre # 인덱스 오류 자주남 (에러처리)
 
             if audiofile.tag.lyrics and audiofile.tag.lyrics[0] and audiofile.tag.lyrics[0].text:
                 metadata["lyrics"]=audiofile.tag.lyrics[0].text 
