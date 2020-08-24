@@ -41,8 +41,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'django_celery_beat',
-    'django_celery_results',
+    # 'django_celery_beat', # 로컬에서만 테스트하기
+    # 'django_celery_results', # 로컬에서만 테스트하기
     'mp3', # 프로젝트 폴더
 ]
 
@@ -163,12 +163,13 @@ DATABASES['default'].update(db_from_env)
 # AUTH_USER_MODEL = 'users.Users' # 'AppName.모델명'
 
 
+# 로컬에서만 테스트하기
 #config/settings.py
-CELERY_BROKER_URL = 'redis://localhost:6379'
-CELERY_ACCEPT_CONTENT = ['application/json']
-CELERY_RESULT_BACKEND = 'redis://localhost:6379'
-CELERY_RESULT_SERIALIZER = 'json'
-CELERY_TASK_SERIALIZER = 'json'
-CELERY_TIMEZONE = 'Asia/Seoul'
-CELERY_TASK_TRACK_STARTED=True
+# CELERY_BROKER_URL = 'redis://localhost:6379'
+# CELERY_ACCEPT_CONTENT = ['application/json']
+# CELERY_RESULT_BACKEND = 'redis://localhost:6379'
+# CELERY_RESULT_SERIALIZER = 'json'
+# CELERY_TASK_SERIALIZER = 'json'
+# CELERY_TIMEZONE = 'Asia/Seoul'
+# CELERY_TASK_TRACK_STARTED=True
 
