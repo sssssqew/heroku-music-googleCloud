@@ -9,13 +9,14 @@ body {
   /* border: 2px solid red; */
 }
 
-nav {
+.navbar-wrapper {
   z-index: 1;
-  position: fixed;
+  position: fixed !important;
   width: 100%;
   height: 60px;
   left: 0;
   top: 0;
+  background: #f8f8f8;
 }
 
 #dropzone {
@@ -68,7 +69,7 @@ nav {
 
 .container {
   position: relative;
-  top: 200px;
+  top: 280px;
 }
 
 /* album art */
@@ -293,7 +294,7 @@ nav {
     top: 130px;
   }
   .container {
-    top: 100px;
+    top: 180px;
   }
   /* 모바일에서는 필요없는 필드는 제거함 */
   .no-td {

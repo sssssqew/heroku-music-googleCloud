@@ -32,13 +32,13 @@
     <link rel="stylesheet" href='{% static "css/base.css" %}' />
   </head>
   <body>
-    <nav class="navbar navbar-default container-fluid">
+    <div class="navbar-wrapper">
       <div class="navbar-header">
         <a class="navbar-brand" href="{% url 'mp3:home' %}">
           <img src="{% static 'mp3/song3.ico' %}" width="25" height="auto" />
         </a>
       </div>
-    </nav>
+    </div>
 
     <form id="passData" action="" method="POST" enctype="multipart/form-data">
       {% csrf_token %}
