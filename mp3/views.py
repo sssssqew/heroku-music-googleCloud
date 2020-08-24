@@ -61,9 +61,15 @@ def saveSong(request):
                 songInfos={"name": song.name, "savedFilePath": savedFilePath}
                 print("google upload started ......")
                 add.delay(4,9)
-                res=uploadSongToGoogleStorage.delay(songInfos)
-                print(res.state) # 'SUCCESS'
-                print(res.get()) # 7
+                
+                # 히로쿠에서 레디스 애드온 설치하려면 카드 정보 입력해야 되서 비동기 테스트는 로컬에서만 하기 
+                # res=uploadSongToGoogleStorage.delay(songInfos)
+                
+                # 히로쿠에서는 동기로만 실행하기
+                res=uploadSongToGoogleStorage(songInfos)
+               
+                # print(res.state) # 'SUCCESS'
+                # print(res.get()) # 7
 
     print("--- Execute Time: %s seconds ---" % (time.time() - start_time))
 
