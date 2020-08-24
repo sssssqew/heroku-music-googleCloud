@@ -35,7 +35,7 @@ def get_metadata(songName, path):
             # 구글 스토리지에 앨범 커버를 저장함
             if audiofile.tag.images:
                 for image in audiofile.tag.images:
-                    coverName=audiofile.tag.title or songName.split(".")[0]
+                    coverName=audiofile.tag.title or songName
                     path_on_cloud = gsCoverFolder+"/"+coverName +".jpg"
                     storageInfos["storage"].child(path_on_cloud).put(image.image_data)
 
@@ -48,8 +48,8 @@ def get_metadata(songName, path):
             metadata["artist"]=audiofile.tag.artist or ""
             metadata["release"]=audiofile.tag.getBestDate()  or ""
 
-            if audiofile.tag.genre and str(audiofile.tag.genre).split(")") and str(audiofile.tag.genre).split(")")[1]:
-                metadata["genre"]=str(audiofile.tag.genre).split(")")[1]
+            if audiofile.tag.genre:
+                metadata["genre"]=audiofile.tag.genre) # 인덱스 오류 자주남 (에러처리)
 
             if audiofile.tag.lyrics and audiofile.tag.lyrics[0] and audiofile.tag.lyrics[0].text:
                 metadata["lyrics"]=audiofile.tag.lyrics[0].text 
