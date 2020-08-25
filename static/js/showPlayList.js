@@ -69,7 +69,7 @@ for (var j = 0; j < 3; j++) {
     playButton.value = "Play";
     playButton.id = cnt;
     playButton.url = url;
-    playButton.addEventListener("click", playMusic, false);
+    playButton.addEventListener("click", playMusicWhenClicked, false);
 
     buttons.appendChild(playButton);
 

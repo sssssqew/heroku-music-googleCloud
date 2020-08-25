@@ -1,5 +1,6 @@
 console.log("server start");
 var loadStart = new Date().getTime();
+var songsDB = [];
 
 // 전역으로 사용할 객체 (element)
 var audio = document.getElementById("musicPlayer"); // 현재곡 객체
@@ -256,14 +257,17 @@ modalImg.onclick = function(e) {
 };
 
 /************************** Play 버튼 클릭시 음악 재생 ***********************/
+function playMusicWhenClicked(e) {
+  playMusic(e.target);
+}
 
-function playMusic(e) {
-  progress = document.getElementsByClassName(pClassName)[e.target.id];
+function playMusic(songToPlay) {
+  progress = document.getElementsByClassName(pClassName)[songToPlay.id];
 
-  if (prevID != e.target.id) {
+  if (prevID != songToPlay.id) {
     // 이전곡과 다른곡 재생시
     console.log("You played new song !!");
-    audio.src = e.target.url;
+    audio.src = songToPlay.url;
 
     if (prevID != -1) {
       // CD Player 버튼으로 노래를 듣다가 Play 버튼으로 다른 음악을 재생시
@@ -281,7 +285,7 @@ function playMusic(e) {
   } else {
     // CD Player에서 나와서 같은 노래를 Play 버튼으로 다시 틀었을 경우
     if (where == 1) {
-      audio.src = e.target.url;
+      audio.src = songToPlay.url;
 
       modalImg.clicked = true;
       modalImg.className = "modal-content";
@@ -291,15 +295,23 @@ function playMusic(e) {
   }
 
   // Play에서  Pause 로 갈수도 있고 다시 Play 버튼을 누를수도 있음
-  if (e.target.value == "Play") {
+  if (songToPlay.value == "Play") {
     audio.play();
-    e.target.value = "Pause";
+    songToPlay.value = "Pause";
     console.log("play");
 
     // 노래가 끝나서 새로 재생할 때
     audio.onended = function() {
       console.log("music really ended !!");
-      e.target.value = "Play";
+      songToPlay.value = "Play";
+      console.log("song db=> ", songsDB);
+
+      // 자동재생 => 노래가 끝나면 다음곡을 찾아서 재생하고 다음곡 play => pause 로 변경함
+      var nextSongID = parseInt(songToPlay.id) + 1;
+      if (nextSongID < cnt) {
+        nextSongToPlay = document.getElementById(`${nextSongID}`);
+        playMusic(nextSongToPlay);
+      }
     };
 
     // 현재까지 재생한 시간 표시
@@ -313,61 +325,15 @@ function playMusic(e) {
 
     // 새로운 곡을 재생하면 좋아요 1 증가
     if (audio.currentTime == 0) {
-      var like = document.getElementsByClassName("favor")[e.target.id];
+      var like = document.getElementsByClassName("favor")[songToPlay.id];
       like.innerText = parseInt(like.innerText) + 1;
     }
-  } else if (e.target.value == "Pause") {
+  } else if (songToPlay.value == "Pause") {
     audio.pause();
-    e.target.value = "Play";
+    songToPlay.value = "Play";
     console.log("Pause");
   }
 
-  prevID = e.target.id; // 이전 노래의 객체 저장
+  prevID = songToPlay.id; // 이전 노래의 객체 저장
   where = 0;
-}
-
-/**************************  파일입력을 핸들링하는 이벤트  ***********************/
-
-function handleFiles(files) {
-  var formData = new FormData($("#passData").get(0));
-
-  for (var i = 0; i < files.length; i++) {
-    var file = files[i];
-
-    dropzone.className = "";
-
-    // 입력파일 타입 체크 (audio 타입만 전송)
-    originType = musicFiles.getAttribute("accept").split("/", 1);
-    fType = file.type.split("/", 1);
-
-    if (originType[0] != fType[0]) {
-      alert("File type is not allowed." + "\n" + "file : " + file.name);
-    } else {
-      // 전송할 파일 추가함
-      formData.append("songFile", file);
-    }
-  }
-
-  // 파일을 서버로 전송함
-  console.log("file transfer start");
-  var uploadStart = new Date().getTime();
-  var uploadSpeed = 0;
-
-  // Ajax 방식
-  var xhr = new XMLHttpRequest();
-  xhr.open("POST", "/pass/", true);
-  xhr.onreadystatechange = function(response) {
-    if (xhr.readyState == 4) {
-      if (xhr.status == 200) {
-        console.log("file successfully submitted");
-        console.log("page reloading...");
-        location.reload();
-        uploadSpeed = new Date().getTime() - uploadStart;
-        console.log("upload speed..." + uploadSpeed / 1000 + " sec");
-      } else {
-        console.log("error occured while uploading file");
-      }
-    }
-  };
-  xhr.send(formData);
 }

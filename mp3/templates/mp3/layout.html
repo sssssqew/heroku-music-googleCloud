@@ -116,6 +116,7 @@
     </script>
 
     <script src="{% static 'js/playControls.js' %}"></script>
+    <script src="{% static 'js/handleFileUploads.js' %}"></script>
 
     <!-- *************  음악의 태그를 읽고 테이블에 정보를 표시하는 기능   *************** -->
 
@@ -153,6 +154,8 @@
       // safe filter will no escape
       var lyrics = `{{ music.lyrics | safe }}`;
       var duration = "{{ music.duration }}";
+
+      songsDB.push({ title: titleInfo, src: url });
     </script>
 
     <script src="{% static 'js/showPlayList.js' %}"></script>
