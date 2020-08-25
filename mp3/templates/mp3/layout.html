@@ -84,6 +84,21 @@
       </div>
       <br />
 
+      <form class="search-bar" action="{% url 'mp3:home' %}" method="POST">
+        {% csrf_token %}
+        <input
+          class="form-control search-input"
+          type="search"
+          placeholder="Search song here ..."
+          aria-label="Search"
+          name="q"
+          value="{{q}}"
+        />
+        <button class="btn btn-dark" type="submit">
+          Search
+        </button>
+      </form>
+
       <table class="table  table-striped">
         <thread>
           <tr>

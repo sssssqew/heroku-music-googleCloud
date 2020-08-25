@@ -9,6 +9,16 @@ body {
   /* border: 2px solid red; */
 }
 
+.search-bar {
+  display: flex;
+  margin-bottom: 20px;
+}
+.search-input {
+  width: 80%;
+  flex: 1;
+  margin-right: 10px;
+}
+
 .navbar-wrapper {
   z-index: 1;
   position: fixed !important;

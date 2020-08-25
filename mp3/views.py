@@ -16,6 +16,7 @@ import time
 
 # 비동기 작업
 from .tasks import uploadSongToGoogleStorage
+from django.db.models import Q
 
 # 페이지 렌더링은 파일전송 성공시 Ajax 콜백함수(success)에서 한번만 함
 # Ajax 콜백함수(success)가 호출되면 페이지를 새로고침함
@@ -30,10 +31,20 @@ def save_song(pathToSave, song):
 
 def index(request):
     print("rendering start...")
+    query = request.POST.get('q', "") 
     try:
-        musics = AudioFile.objects.all()
+        if query:
+            print("query=> "+query)
+            musics = AudioFile.objects.filter(Q(album__icontains=query)| Q(title__icontains=query) | Q(artist__icontains=query)| Q(genre__icontains=query) | Q(release__icontains=query))
+            for music in musics:
+                print("searched music ==> "+ music.title)
+        else:
+            musics = AudioFile.objects.all()
+            for music in musics:
+                print("total music ==> "+ music.title)
     except:
         musics = None
+    
     context = {"musics": musics}
 
     return render(request, 'mp3/layout.html', context)
